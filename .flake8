@@ -8,4 +8,6 @@ exclude =
     .pytest_cache,
     build,
     dist
+    migrations,
+    wardrobe_web
 max-line-length = 79

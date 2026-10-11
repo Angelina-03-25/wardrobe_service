@@ -7,6 +7,8 @@ env/
 __pycache__/
 *.py[cod]
 *$py.class
+.pytest_cache/
+*.pyc
 
 # IDE
 .vscode/
@@ -15,3 +17,4 @@ __pycache__/
 # Прочее
 *.log
 .DS_Store
+db.sqlite3
