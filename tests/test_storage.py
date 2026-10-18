@@ -1,6 +1,6 @@
 """Тесты сохранения и загрузки состояния приложения."""
 
-import os
+# import os
 
 from storage import load_data, save_data
 

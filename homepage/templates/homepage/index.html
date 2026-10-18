@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %}Главная - Сервис учета одежды{% endblock %}
+
+{% block content %}
+<h1 class="display-4">Сервис учета одежды</h1>
+<p class="lead">Веб-интерфейс личного гардероба.</p>
+<p>Основные разделы:</p>
+<a href="{% url 'wardrobe:item_list' %}" class="btn btn-primary me-2">Вещи</a>
+<a href="{% url 'catalog:category_list' %}" class="btn btn-secondary me-2">Категории</a>
+<a href="{% url 'catalog:season_list' %}" class="btn btn-secondary">Сезоны</a>
+{% endblock %}

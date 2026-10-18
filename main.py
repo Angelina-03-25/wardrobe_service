@@ -230,7 +230,8 @@ def demo_pr1_scenario() -> None:
     print(f"Сезон вещи: {season.name}")
     print(f"Мин. температура вещи: {item.min_temp}°C")
     print(f"Текущая температура: {current_temp}°C")
-    print(f"Подходит по температуре: {'да' if item.is_suitable(current_temp) else 'нет'}")
+    status = 'да' if item.is_suitable(current_temp) else 'нет'
+    print(f"Подходит по температуре: {status}")
 
 
 # ---------------------------------------------------------------------------

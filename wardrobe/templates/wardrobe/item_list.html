@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}Вещи - Сервис учета одежды{% endblock %}
+
+{% block content %}
+<h1>Вещи</h1>
+<p>Всего вещей: {{ items|length }}</p>
+
+{% for item in items %}
+    {% include "wardrobe/includes/item_card.html" %}
+{% empty %}
+    <div class="alert alert-info">Список вещей пуст.</div>
+{% endfor %}
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}Сезоны - Сервис учета одежды{% endblock %}
+
+{% block content %}
+<h1>Сезоны</h1>
+<ul class="list-group">
+    {% for s in seasons %}
+        <li class="list-group-item">{{ s.name|default:"Без названия" }}</li>
+    {% empty %}
+        <li class="list-group-item">Список сезонов пуст.</li>
+    {% endfor %}
+</ul>
+{% endblock %}

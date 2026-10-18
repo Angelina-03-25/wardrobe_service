@@ -1,0 +1,7 @@
+<article class="card mb-3 wardrobe-card">
+    <div class="card-body">
+        <h2 class="card-title h5">{{ item.name|default:"Без названия" }}</h2>
+        <p class="card-text">Мин. температура: {{ item.min_temp }}°C</p>
+        <a href="{% url 'wardrobe:item_detail' item.id %}" class="btn btn-primary btn-sm">Подробнее</a>
+    </div>
+</article>

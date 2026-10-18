@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Категории - Сервис учета одежды{% endblock %}
+{% block content %}
+<h1>Категории</h1>
+<ul class="list-group">
+    {% for c in categories %}
+        <li class="list-group-item">{{ c.name|default:"Без названия" }}</li>
+    {% empty %}
+        <li class="list-group-item">Список категорий пуст.</li>
+    {% endfor %}
+</ul>
+{% endblock %}
