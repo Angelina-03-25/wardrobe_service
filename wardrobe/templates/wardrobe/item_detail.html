@@ -10,9 +10,8 @@
         <div class="card-body">
             <h1 class="card-title">{{ item.name }}</h1>
             <p class="card-text"><strong>ID:</strong> {{ item.id }}</p>
-            <p class="card-text"><strong>Категория:</strong> {{ categories|default_if_none:""|get_item:item.category_id|default:"—" }}</p>
-            <!-- Примечание: в Django Template нельзя просто так сделать dict.get(), поэтому мы могли бы передать имена в контексте -->
-            <p class="card-text"><strong>Сезон:</strong> {{ seasons|default_if_none:""|get_item:item.season_id|default:"—" }}</p>
+            <p class="card-text"><strong>Категория:</strong> {{ item.category }}</p>
+            <p class="card-text"><strong>Сезон:</strong> {{ item.season }}</p>
             <p class="card-text"><strong>Мин. температура:</strong> {{ item.min_temp }}°C</p>
         </div>
     </div>
