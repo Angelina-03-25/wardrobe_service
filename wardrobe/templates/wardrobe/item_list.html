@@ -1,14 +1,82 @@
 {% extends "base.html" %}
-
 {% block title %}Вещи - Сервис учета одежды{% endblock %}
 
 {% block content %}
 <h1>Вещи</h1>
-<p>Всего вещей: {{ items|length }}</p>
 
-{% for item in items %}
-    {% include "wardrobe/includes/item_card.html" %}
-{% empty %}
-    <div class="alert alert-info">Список вещей пуст.</div>
-{% endfor %}
+<!-- Форма поиска и фильтрации -->
+<form method="get" class="row g-3 mb-4">
+    <div class="col-md-4">
+        <input type="text" name="q" class="form-control" placeholder="Поиск по названию" value="{{ q }}">
+    </div>
+    <div class="col-md-3">
+        <select name="category" class="form-select">
+            <option value="">Все категории</option>
+            {% for cat in categories %}
+                <option value="{{ cat.id }}" {% if selected_category == cat.id|stringformat:"s" %}selected{% endif %}>
+                    {{ cat.name }}
+                </option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="col-md-3">
+        <select name="sort" class="form-select">
+            <option value="name" {% if sort == 'name' %}selected{% endif %}>По названию (А-Я)</option>
+            <option value="temp" {% if sort == 'temp' %}selected{% endif %}>По температуре (возр.)</option>
+            <option value="temp_desc" {% if sort == 'temp_desc' %}selected{% endif %}>По температуре (убыв.)</option>
+        </select>
+    </div>
+    <div class="col-md-2">
+        <button type="submit" class="btn btn-primary w-100">Найти</button>
+    </div>
+</form>
+
+<!-- Список вещей -->
+<div class="row">
+    {% for item in page_obj %}
+        <div class="col-md-4 mb-3">
+            <div class="card wardrobe-card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">{{ item.name }}</h5>
+                    <p class="card-text mb-1"><strong>Категория:</strong> {{ item.category.name }}</p>
+                    <p class="card-text mb-1"><strong>Сезон:</strong> {{ item.season.name }}</p>
+                    <p class="card-text"><strong>Мин. t°C:</strong> {{ item.min_temp }}°C</p>
+                    <a href="{% url 'wardrobe:item_detail' item.id %}" class="btn btn-sm btn-outline-primary">Подробнее</a>
+                </div>
+            </div>
+        </div>
+    {% empty %}
+        <div class="col-12">
+            <div class="alert alert-info">По вашему запросу ничего не найдено.</div>
+        </div>
+    {% endfor %}
+</div>
+
+<!-- Пагинация -->
+{% if page_obj.paginator.num_pages > 1 %}
+<nav aria-label="Навигация по страницам">
+    <ul class="pagination justify-content-center">
+        {% if page_obj.has_previous %}
+            <li class="page-item"><a class="page-link" href="{% querystring page=page_obj.previous_page_number %}">Назад</a></li>
+        {% else %}
+            <li class="page-item disabled"><span class="page-link">Назад</span></li>
+        {% endif %}
+
+        {% for num in page_obj.paginator.page_range %}
+            {% if page_obj.number == num %}
+                <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+            {% else %}
+                <li class="page-item"><a class="page-link" href="{% querystring page=num %}">{{ num }}</a></li>
+            {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+            <li class="page-item"><a class="page-link" href="{% querystring page=page_obj.next_page_number %}">Вперед</a></li>
+        {% else %}
+            <li class="page-item disabled"><span class="page-link">Вперед</span></li>
+        {% endif %}
+    </ul>
+</nav>
+{% endif %}
+
 {% endblock %}
