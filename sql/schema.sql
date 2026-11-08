@@ -1,11 +1,10 @@
--- Таблица пользователей
 CREATE TABLE IF NOT EXISTS users (
     id INTEGER PRIMARY KEY,
     username TEXT NOT NULL,
     email TEXT NOT NULL
 );
 
--- Таблица гардеробов (связь 1 к 1 с пользователем)
+
 CREATE TABLE IF NOT EXISTS wardrobes (
     id INTEGER PRIMARY KEY,
     user_id INTEGER NOT NULL UNIQUE,
@@ -13,19 +12,19 @@ CREATE TABLE IF NOT EXISTS wardrobes (
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
--- Справочник категорий
+
 CREATE TABLE IF NOT EXISTS categories (
     id INTEGER PRIMARY KEY,
     name TEXT NOT NULL
 );
 
--- Справочник сезонов
+
 CREATE TABLE IF NOT EXISTS seasons (
     id INTEGER PRIMARY KEY,
     name TEXT NOT NULL
 );
 
--- Таблица вещей
+
 CREATE TABLE IF NOT EXISTS items (
     id INTEGER PRIMARY KEY,
     wardrobe_id INTEGER NOT NULL,
