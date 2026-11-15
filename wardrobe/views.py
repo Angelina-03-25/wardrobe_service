@@ -4,8 +4,9 @@ from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator
 from wardrobe.models import Item
 from catalog.models import Category
+from django.contrib.auth.decorators import login_required
 
-
+@login_required
 def item_list(request):
     """Список вещей с фильтрацией, сортировкой и пагинацией."""
     # 1. Базовая выборка (сразу подтягиваем связанные таблицы для оптимизации)
@@ -47,7 +48,7 @@ def item_list(request):
     }
     return render(request, "wardrobe/item_list.html", context)
 
-
+@login_required
 def item_detail(request, item_id: int):
     """Страница одной вещи."""
     # get_object_or_404 автоматически вернет 404, если вещи нет
