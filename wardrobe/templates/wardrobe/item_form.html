@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block title %}
+    {% if item %}Редактирование вещи{% else %}Добавление вещи{% endif %} - Сервис учета одежды
+{% endblock %}
+
+{% block content %}
+<!-- Списки подсказок для автодополнения -->
+<datalist id="category-list">
+    {% for cat in categories %}
+        <option value="{{ cat.name }}">
+    {% endfor %}
+</datalist>
+
+<datalist id="season-list">
+    {% for s in seasons %}
+        <option value="{{ s.name }}">
+    {% endfor %}
+</datalist>
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <h1 class="mb-4">
+            {% if item %}Редактировать: {{ item.name }}{% else %}Добавить вещь{% endif %}
+        </h1>
+
+        <form method="post">
+            {% csrf_token %}
+            
+            {% for field in form %}
+                <div class="mb-3">
+                    {{ field.label_tag }}
+                    {{ field }}
+                    {% if field.help_text %}
+                        <div class="form-text">{{ field.help_text }}</div>
+                    {% endif %}
+                    {% for error in field.errors %}
+                        <div class="text-danger small">{{ error }}</div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+
+            <button type="submit" class="btn btn-success">
+                {% if item %}Сохранить изменения{% else %}Создать вещь{% endif %}
+            </button>
+            <a href="{% url 'wardrobe:item_list' %}" class="btn btn-secondary">Отмена</a>
+        </form>
+    </div>
+</div>
+{% endblock %}
